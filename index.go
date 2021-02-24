@@ -10,7 +10,7 @@ func main() {
 }
 
 func initDb() {
-	cfg, err := goconfig.LoadConfigFile("conf.ini")
+	cfg, err := goconfig.LoadConfigFile("config/dbconf.ini")
 	if err != nil {
 		fmt.Println(err)
 	}
