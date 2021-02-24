@@ -11,6 +11,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/ugorji/go v1.2.4 // indirect
+	github.com/unknwon/goconfig v0.0.0-20200908083735-df7de6a44db8
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83 // indirect
 	golang.org/x/sys v0.0.0-20210223212115-eede4237b368 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
