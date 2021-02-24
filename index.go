@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/unknwon/goconfig"
-	"gorm.io/driver/sqlite"
-	"gorm.io/gorm"
 )
 
 func main() {
@@ -24,6 +22,7 @@ func initDb() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	fmt.Println(db_connection)
 	//db_port, err := cfg.GetValue("", "DB_PORT")
 	//if err != nil {
 	//	fmt.Println(err)
@@ -40,11 +39,5 @@ func initDb() {
 	//if err != nil {
 	//	fmt.Println(err)
 	//}
-	DB, err := gorm.Open(sqlite.Open(db_connection), &gorm.Config{})
-	if err == nil {
-		fmt.Println("open db sucess", DB)
-	} else {
-		fmt.Println("open db error ", err)
-	}
 
 }
