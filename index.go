@@ -11,7 +11,7 @@ const ENV  = "local"
 func main() {
 	php2go := php2go.Md5("123123")
 	fmt.Println(php2go)
-	//initDb()
+	initDb()
 }
 
 func initDb() {
