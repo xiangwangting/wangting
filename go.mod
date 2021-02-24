@@ -13,7 +13,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.6 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.1 // indirect
-	github.com/syyongx/php2go v0.9.4 // indirect
+	github.com/syyongx/php2go v0.9.4
 	github.com/ugorji/go v1.2.4 // indirect
 	github.com/unknwon/goconfig v0.0.0-20200908083735-df7de6a44db8
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83 // indirect

@@ -3,12 +3,15 @@ package main
 import (
 	"fmt"
 	"github.com/unknwon/goconfig"
+	"github.com/syyongx/php2go"
 )
 
 const ENV  = "local"
 
 func main() {
-	initDb()
+	php2go := php2go.Md5("123123")
+	fmt.Println(php2go)
+	//initDb()
 }
 
 func initDb() {
