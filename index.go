@@ -4,26 +4,32 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/goconfig"
+	"wangting/app/conrtoller/demoController"
 )
 
 const ENV  = "local"
 
 func main() {
-	//initDb()
+	initOrm()
 	// 1.创建路由
 	// 默认使用了2个中间件Logger(), Recovery()
 	r := gin.Default()
 	// 路由组1 ，处理GET请求
-	v1 := r.Group("/api/v1")
-	// {} 是书写规范
+	client1 := r.Group("/api/v1")
+	client2 := r.Group("/api/v1")
 	{
-		v1.GET("login", login)
-		v1.GET("submit", submit)
+		//client1.GET("/", demoController.Login)
+		client1.GET("login", demoController.Login)
+		client1.GET("submit", demoController.Submit)
+	}
+	{
+		client2.POST("login", demoController.Login)
+		client2.POST("submit", demoController.Submit)
 	}
 	r.Run(":8000")
 }
 
-func initDb() {
+func initOrm() {
 	cfg, err := goconfig.LoadConfigFile("config/dbconf." + ENV + ".ini")
 	if err != nil {
 		fmt.Println(err)
@@ -56,12 +62,3 @@ func initDb() {
 
 }
 
-func login(c *gin.Context) {
-	name := c.DefaultQuery("name", "jack")
-	c.String(200, fmt.Sprintf("hello %s\n", name))
-}
-
-func submit(c *gin.Context) {
-	name := c.DefaultQuery("name", "lily")
-	c.String(200, fmt.Sprintf("hello %s\n", name))
-}
