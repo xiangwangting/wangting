@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/unknwon/goconfig"
 	"github.com/syyongx/php2go"
+	"wangting/app/constants"
 )
 
 const ENV  = "local"
@@ -11,6 +12,7 @@ const ENV  = "local"
 func main() {
 	php2go := php2go.Md5("123123")
 	fmt.Println(php2go)
+	fmt.Println(constants.EnvType{}.Dev)
 	initDb()
 }
 
