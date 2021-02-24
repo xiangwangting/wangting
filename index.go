@@ -2,18 +2,25 @@ package main
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/unknwon/goconfig"
-	"github.com/syyongx/php2go"
-	"wangting/app/constants"
 )
 
 const ENV  = "local"
 
 func main() {
-	php2go := php2go.Md5("123123")
-	fmt.Println(php2go)
-	fmt.Println(constants.EnvType{}.Dev)
-	initDb()
+	//initDb()
+	// 1.创建路由
+	// 默认使用了2个中间件Logger(), Recovery()
+	r := gin.Default()
+	// 路由组1 ，处理GET请求
+	v1 := r.Group("/api/v1")
+	// {} 是书写规范
+	{
+		v1.GET("login", login)
+		v1.GET("submit", submit)
+	}
+	r.Run(":8000")
 }
 
 func initDb() {
@@ -47,4 +54,14 @@ func initDb() {
 	//	fmt.Println(err)
 	//}
 
+}
+
+func login(c *gin.Context) {
+	name := c.DefaultQuery("name", "jack")
+	c.String(200, fmt.Sprintf("hello %s\n", name))
+}
+
+func submit(c *gin.Context) {
+	name := c.DefaultQuery("name", "lily")
+	c.String(200, fmt.Sprintf("hello %s\n", name))
 }
