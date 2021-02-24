@@ -5,10 +5,9 @@ import (
 	"github.com/unknwon/goconfig"
 )
 
-const ENV = "local"
+const ENV  = "local"
 
 func main() {
-
 	initDb()
 }
 
