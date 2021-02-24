@@ -5,12 +5,15 @@ import (
 	"github.com/unknwon/goconfig"
 )
 
+const ENV = "local"
+
 func main() {
+
 	initDb()
 }
 
 func initDb() {
-	cfg, err := goconfig.LoadConfigFile("config/dbconf.ini")
+	cfg, err := goconfig.LoadConfigFile("config/dbconf." + ENV + ".ini")
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -22,7 +25,7 @@ func initDb() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(db_connection)
+	fmt.Println(ENV, db_connection)
 	//db_port, err := cfg.GetValue("", "DB_PORT")
 	//if err != nil {
 	//	fmt.Println(err)
