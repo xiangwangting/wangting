@@ -7,6 +7,7 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"wangting/conf"
 	"wangting/http/route"
+	"wangting/pkg/enum/envEnum"
 )
 
 //系统配置
@@ -15,7 +16,7 @@ var configMap conf.Config
 //入口程序
 func main() {
 	//环境，初始化配置
-	configMap.ENV = "local"
+	configMap.ENV = envEnum.LOCAL
 	configMap.Init()
 	//连接数据库
 	initDB()
