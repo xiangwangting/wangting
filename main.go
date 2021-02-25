@@ -1,21 +1,26 @@
 package main
 
 import (
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/unknwon/goconfig"
-	//"wangting/app/conrtoller/demoController"
-	"wangting/routes"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
+	"log"
+	"wangting/conf"
 )
 
-const ENV  = "local"
+//系统配置
+var configMap conf.Config
 
+//入口程序
 func main() {
+	//环境，初始化配置
+	configMap.ENV = "local"
+	configMap.Init()
 	initOrm()
 	// 1.创建路由
 	// 默认使用了2个中间件Logger(), Recovery()
-	s := gin.Default()
-	routes.Load(s)
+	//s := gin.Default()
+	//routes.Load(s)
 	//// 路由组1 ，处理GET请求
 	//client1 := r.Group("/api/v1")
 	//client2 := r.Group("/api/v2")
@@ -28,39 +33,14 @@ func main() {
 	//	client2.POST("login", demoController.Login)
 	//	client2.POST("submit", demoController.Submit)
 	//}
-	s.Run(":8000")
+	//s.Run(":8000")
 }
 
 func initOrm() {
-	cfg, err := goconfig.LoadConfigFile("config/dbconf." + ENV + ".ini")
-	if err != nil {
-		fmt.Println(err)
+	//连接数据库
+	db, err := gorm.Open(configMap.DB.CONNECTION, configMap.DB.USERNAME+":"+configMap.DB.PASSWORD+"@tcp("+configMap.DB.HOST+":"+configMap.DB.PORT+")/"+configMap.DB.DATABASE+"?charset=utf8")
+	if err != nil{
+		log.Fatalf("gorm链接错误: %v", err)
 	}
-	//db_host, err := cfg.GetValue("", "DB_HOST")
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	db_connection, err := cfg.GetValue("", "DB_CONNECTION")
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println(ENV, db_connection)
-	//db_port, err := cfg.GetValue("", "DB_PORT")
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	//db_database, err := cfg.GetValue("", "DB_DATABASE")
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	//db_username, err := cfg.GetValue("", "DB_USERNAME")
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-	//db_password, err := cfg.GetValue("", "DB_PASSWORD")
-	//if err != nil {
-	//	fmt.Println(err)
-	//}
-
+	defer db.Close()
 }
-
