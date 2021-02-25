@@ -1,1 +1,5 @@
 package demoRoute
+
+func demofunc(){
+
+}
