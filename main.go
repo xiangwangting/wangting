@@ -24,7 +24,6 @@ func main() {
 		log.Fatalf("gorm链接错误: %v", err)
 	}
 	defer db.Close()
-
 	s := gin.Default()
 	route.Load(s)
 	s.Run(":8000")
