@@ -5,6 +5,7 @@ import (
 	"github.com/syyongx/php2go"
 )
 
+//加载路由
 func Load(router *gin.Engine)  {
 	api := router.Group("api/v1")
 	api.GET("/*any",handel)

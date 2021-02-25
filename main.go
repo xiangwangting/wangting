@@ -3,9 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/jinzhu/gorm"
-	"log"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"wangting/conf"
 	"wangting/http/route"
 )
@@ -19,13 +18,15 @@ func main() {
 	configMap.ENV = "local"
 	configMap.Init()
 	//连接数据库
-	db, err := gorm.Open(configMap.DB.CONNECTION, configMap.DB.USERNAME+":"+configMap.DB.PASSWORD+"@tcp("+configMap.DB.HOST+":"+configMap.DB.PORT+")/"+configMap.DB.DATABASE+"?charset=utf8")
-	if err != nil{
-		log.Fatalf("gorm链接错误: %v", err)
-	}
-	defer db.Close()
+	initDB()
+	//初始化路由
 	s := gin.Default()
 	route.Load(s)
 	s.Run(":8000")
+}
+
+func initDB(){
+	db, _ := gorm.Open(configMap.DB.CONNECTION, configMap.DB.USERNAME+":"+configMap.DB.PASSWORD+"@tcp("+configMap.DB.HOST+":"+configMap.DB.PORT+")/"+configMap.DB.DATABASE+"?charset=utf8")
+	defer db.Close()
 }
 
