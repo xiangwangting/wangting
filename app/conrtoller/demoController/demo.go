@@ -14,3 +14,7 @@ func Submit(c *gin.Context) {
 	name := c.DefaultQuery("name", "lily")
 	c.String(200, fmt.Sprintf("hello %s\n", name))
 }
+
+func Any(c *gin.Context){
+	c.String(200, c.Request.RequestURI)
+}
