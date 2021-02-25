@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/unknwon/goconfig"
-	"wangting/app/conrtoller/demoController"
+	//"wangting/app/conrtoller/demoController"
+	"wangting/routes"
 )
 
 const ENV  = "local"
@@ -13,20 +14,21 @@ func main() {
 	initOrm()
 	// 1.创建路由
 	// 默认使用了2个中间件Logger(), Recovery()
-	r := gin.Default()
-	// 路由组1 ，处理GET请求
-	client1 := r.Group("/api/v1")
-	client2 := r.Group("/api/v1")
-	{
-		//client1.GET("/", demoController.Login)
-		client1.GET("login", demoController.Login)
-		client1.GET("submit", demoController.Submit)
-	}
-	{
-		client2.POST("login", demoController.Login)
-		client2.POST("submit", demoController.Submit)
-	}
-	r.Run(":8000")
+	s := gin.Default()
+	routes.Load(s)
+	//// 路由组1 ，处理GET请求
+	//client1 := r.Group("/api/v1")
+	//client2 := r.Group("/api/v2")
+	//{
+	//	//client1.GET("/", demoController.Login)
+	//	client1.GET("login", demoController.Login)
+	//	client1.GET("submit", demoController.Submit)
+	//}
+	//{
+	//	client2.POST("login", demoController.Login)
+	//	client2.POST("submit", demoController.Submit)
+	//}
+	s.Run(":8000")
 }
 
 func initOrm() {
