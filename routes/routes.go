@@ -12,7 +12,7 @@ func Load(router *gin.Engine)  {
 
 func handel(c *gin.Context){
 	path := c.Request.URL.Path
-	path = php2go.StrReplace("/api/v1/","",path,9999)
+	path = php2go.StrReplace("/api/v1/","",path,9999999999)
 	routePackage := php2go.Explode("/",path)[0]
 	c.String(200, routePackage)
 }
