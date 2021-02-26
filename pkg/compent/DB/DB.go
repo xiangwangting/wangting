@@ -5,13 +5,13 @@ import (
 	"wangting/conf"
 )
 
-var GORM struct {
-	DB *gorm.DB
-}
+//gorm链接
+var GORM *gorm.DB
+
 //初始化
-func init(){
-	ConfigMap :=  conf.Config
+func init() {
+	ConfigMap := conf.Config
 	client, _ := gorm.Open(ConfigMap.DB.CONNECTION, ConfigMap.DB.USERNAME+":"+ConfigMap.DB.PASSWORD+"@tcp("+ConfigMap.DB.HOST+":"+ConfigMap.DB.PORT+")/"+ConfigMap.DB.DATABASE+"?charset=utf8")
 	defer client.Close()
-	GORM.DB = client
+	GORM = client
 }
