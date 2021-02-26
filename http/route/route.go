@@ -8,7 +8,6 @@ import (
 //加载路由
 func Load(router *gin.Engine) {
 	initApiRoute(router)
-
 	router.GET("/",handel)
 }
 

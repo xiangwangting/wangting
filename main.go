@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -18,6 +19,7 @@ func main() {
 	//环境，初始化配置
 	configMap.ENV = envEnum.LOCAL
 	configMap.Init()
+	fmt.Println(configMap)
 	//连接数据库
 	initDB()
 	//初始化路由
