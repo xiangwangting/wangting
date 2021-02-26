@@ -4,12 +4,14 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+	"wangting/pkg/enum/envEnum"
 )
 
-type Config struct {
+var Config struct {
 	ENV string
 	App struct {
 		NAME string `yaml:"APP_NAME"`
+		PORT string `yaml:"APP_PORT"`
 	}
 	DB struct {
 		CONNECTION string `yaml:"DB_CONNECTION"`
@@ -28,41 +30,40 @@ type Config struct {
 	}
 }
 
-//构造函数初始化
-func (config *Config) Init() *Config {
-	initApp(config)
-	initDb(config)
-	initRedis(config)
-	return config
+func init(){
+	Config.ENV = envEnum.LOCAL
+	initApp()
+	initDb()
+	initRedis()
 }
-
-func initApp(config *Config) {
+//
+func initApp() {
 	content, err := ioutil.ReadFile( "conf/app.yaml")
 	if err != nil {
 		log.Fatalf("解析dapp.yaml读取错误: %v", err)
 	}
-	if yaml.Unmarshal(content, &config.App) != nil {
+	if yaml.Unmarshal(content, &Config.App) != nil {
 		log.Fatalf("解析app.yaml出错: %v", err)
 	}
 }
-
-//初始化数据库配置
-func initDb(config *Config) {
-	content, err := ioutil.ReadFile("conf/db/" + config.ENV + ".yaml")
+//
+////初始化数据库配置
+func initDb() {
+	content, err := ioutil.ReadFile("conf/db/" + Config.ENV + ".yaml")
 	if err != nil {
 		log.Fatalf("解析db/config.yaml读取错误: %v", err)
 	}
-	if yaml.Unmarshal(content, &config.DB) != nil {
+	if yaml.Unmarshal(content, &Config.DB) != nil {
 		log.Fatalf("解析db/config.yaml出错: %v", err)
 	}
 }
-
-func initRedis(config *Config) {
-	content, err := ioutil.ReadFile("conf/redis/" + config.ENV + ".yaml")
+//
+func initRedis() {
+	content, err := ioutil.ReadFile("conf/redis/" + Config.ENV + ".yaml")
 	if err != nil {
 		log.Fatalf("解析redis/config.yaml读取错误: %v", err)
 	}
-	if yaml.Unmarshal(content, &config.Redis) != nil {
+	if yaml.Unmarshal(content, &Config.Redis) != nil {
 		log.Fatalf("解析redis/config.yaml出错: %v", err)
 	}
 }
