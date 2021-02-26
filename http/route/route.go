@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/syyongx/php2go"
+	"wangting/conf"
 	"wangting/pkg/compent/DB"
 )
 
@@ -48,5 +49,5 @@ func handelApi(c *gin.Context) {
 //处理页面
 func hendelWeb(c *gin.Context){
 	path := c.Request.URL.Path
-	c.String(200, "web站点"+path)
+	c.String(200, "["+conf.Config.App.NAME+"]站点:"+path)
 }

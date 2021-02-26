@@ -30,13 +30,15 @@ var Config struct {
 	}
 }
 
+//初始化函数
 func init(){
 	Config.ENV = envEnum.LOCAL
 	initApp()
 	initDb()
 	initRedis()
 }
-//
+
+//初始化app配置
 func initApp() {
 	content, err := ioutil.ReadFile( "conf/app.yaml")
 	if err != nil {
@@ -46,8 +48,8 @@ func initApp() {
 		log.Fatalf("解析app.yaml出错: %v", err)
 	}
 }
-//
-////初始化数据库配置
+
+//初始化数据库配置
 func initDb() {
 	content, err := ioutil.ReadFile("conf/db/" + Config.ENV + ".yaml")
 	if err != nil {
@@ -57,7 +59,8 @@ func initDb() {
 		log.Fatalf("解析db/config.yaml出错: %v", err)
 	}
 }
-//
+
+//初始化redis配置
 func initRedis() {
 	content, err := ioutil.ReadFile("conf/redis/" + Config.ENV + ".yaml")
 	if err != nil {
