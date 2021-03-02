@@ -12,6 +12,7 @@ var Config struct {
 	App struct {
 		NAME string `yaml:"APP_NAME"`
 		PORT string `yaml:"APP_PORT"`
+		TIMEOUT int `yaml:"APP_TIMEOUT"`
 	}
 	DB struct {
 		CONNECTION string `yaml:"DB_CONNECTION"`
