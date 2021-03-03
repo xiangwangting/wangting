@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
-	_ "github.com/go-sql-driver/mysql"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"log"
 	"net/http"
 	"os"
@@ -58,6 +56,7 @@ func serverRun(s *gin.Engine) {
 	log.Println("server exiting")
 }
 
+//加载资源配置
 func setup() {
 	initOnce.Do(func() {
 		if err:=lib.Init("conf/local/");err!=nil{
