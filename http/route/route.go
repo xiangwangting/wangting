@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/syyongx/php2go"
-	"wangting/conf"
-	"wangting/pkg/compent/DB"
 )
 
 //加载路由
@@ -36,8 +34,6 @@ func initWeb(router *gin.Engine){
 //处理接口
 func handelApi(c *gin.Context) {
 	fmt.Println("接口开始执行")
-	db := DB.GORM
-	fmt.Println(db)
 	path := c.Request.URL.Path
 	path = php2go.StrReplace("/api/v1/", "", path, 9999999999)
 	//pathArr := php2go.Explode("/", path)
@@ -49,5 +45,5 @@ func handelApi(c *gin.Context) {
 //处理页面
 func hendelWeb(c *gin.Context){
 	path := c.Request.URL.Path
-	c.String(200, "["+conf.Config.App.NAME+"]站点:"+path)
+	c.String(200, "[]站点:"+path)
 }

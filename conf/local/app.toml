@@ -1,0 +1,5 @@
+# This is app config
+name="learngo"
+port="8080"
+read_timeout=10
+write_timeout=10

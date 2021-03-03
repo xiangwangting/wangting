@@ -3,6 +3,7 @@
 [base]
     debug_mode="debug"
     time_location="Asia/Chongqing"
+
 [log]
     log_level = "trace"         #日志打印最低级别
     [log.file_writer]           #文件写入配置
