@@ -2,6 +2,7 @@ package route
 
 import (
 	"fmt"
+	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"github.com/syyongx/php2go"
 )
@@ -25,12 +26,13 @@ func initApiRoute(router *gin.Engine) {
 }
 
 //初始化网站
-func initWeb(router *gin.Engine){
+func initWeb(router *gin.Engine) {
 	//静态页面
 	template := router.Group("web")
 	template.GET("/*any", hendelWeb)
 	router.GET("/", hendelWeb)
 }
+
 //处理接口
 func handelApi(c *gin.Context) {
 	fmt.Println("接口开始执行")
@@ -42,8 +44,9 @@ func handelApi(c *gin.Context) {
 	//routePackage.function()
 	c.String(200, path)
 }
+
 //处理页面
-func hendelWeb(c *gin.Context){
+func hendelWeb(c *gin.Context) {
 	path := c.Request.URL.Path
-	c.String(200, "[]站点:"+path)
+	c.String(200, "["+lib.ViperConfMap["app"].GetString("name")+"]站点:"+path)
 }
