@@ -24,10 +24,10 @@ const (
 )
 
 type Response struct {
-	ErrorCode ResponseCode `json:"errno"`
-	ErrorMsg  string       `json:"errmsg"`
-	Data      interface{}  `json:"data"`
-	Stack     interface{}  `json:"stack"`
+	Code     ResponseCode `json:"errno"`
+	ErrorMsg string       `json:"errmsg"`
+	Data     interface{}  `json:"data"`
+	Stack    interface{}  `json:"stack"`
 }
 
 func ResponseError(c *gin.Context, code ResponseCode, err error) {
@@ -36,7 +36,7 @@ func ResponseError(c *gin.Context, code ResponseCode, err error) {
 		stack = strings.Replace(fmt.Sprintf("%+v", err), err.Error()+"\n", "", -1)
 	}
 
-	resp := &Response{ErrorCode: code, ErrorMsg: err.Error(), Data: "", Stack: stack}
+	resp := &Response{Code: code, ErrorMsg: err.Error(), Data: "", Stack: stack}
 	c.JSON(200, resp)
 	response, _ := json.Marshal(resp)
 	c.Set("response", string(response))
@@ -44,7 +44,7 @@ func ResponseError(c *gin.Context, code ResponseCode, err error) {
 }
 
 func ResponseSuccess(c *gin.Context, data interface{}) {
-	resp := &Response{ErrorCode: SuccessCode, ErrorMsg: "", Data: data}
+	resp := &Response{Code: 200, ErrorMsg: "", Data: data}
 	c.JSON(200, resp)
 	response, _ := json.Marshal(resp)
 	c.Set("response", string(response))
