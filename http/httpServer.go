@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"fmt"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -25,6 +26,7 @@ func HttpServerRun() {
 		MaxHeaderBytes: 1 << uint(lib.GetIntConf("base.http.max_header_bytes")),
 	}
 	go func() {
+		fmt.Println("   ____  __ __\n  / __ \\/ //_/\n / / / / ,<   \n/ /_/ / /| |  \n\\____/_/ |_|  \n              \n")
 		log.Printf(" [INFO] HttpServerRun:%s\n",lib.GetStringConf("base.http.addr"))
 		if err := HttpSrvHandler.ListenAndServe(); err != nil {
 			log.Fatalf(" [ERROR] HttpServerRun:%s err:%v\n", lib.GetStringConf("base.http.addr"), err)
