@@ -7,17 +7,17 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
-	"wangting/http/route"
+	"wangting/http"
 )
 
 //入口程序
 func main() {
 	setup()
-	route.HttpServerRun()
+	http.HttpServerRun()
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGKILL, syscall.SIGQUIT, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-	route.HttpServerStop()
+	http.HttpServerStop()
 }
 
 var initOnce sync.Once

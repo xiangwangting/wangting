@@ -1,5 +1,0 @@
-package demoRoute
-
-func demofunc(){
-
-}

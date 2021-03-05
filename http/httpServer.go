@@ -1,4 +1,4 @@
-package route
+package http
 
 import (
 	"context"
@@ -7,15 +7,16 @@ import (
 	"log"
 	"net/http"
 	"time"
+	"wangting/http/route"
 )
 
 var (
 	HttpSrvHandler *http.Server
 )
-
+//http服务启动
 func HttpServerRun() {
 	gin.SetMode(lib.ConfBase.DebugMode)
-	r := InitRouter()
+	r := route.InitRouter()
 	HttpSrvHandler = &http.Server{
 		Addr:           lib.GetStringConf("base.http.addr"),
 		Handler:        r,
@@ -30,7 +31,7 @@ func HttpServerRun() {
 		}
 	}()
 }
-
+//http服务停止
 func HttpServerStop() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
