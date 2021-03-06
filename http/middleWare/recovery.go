@@ -6,6 +6,7 @@ import (
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"runtime/debug"
+	"wangting/http/controller"
 	"wangting/pkg/compent"
 )
 
@@ -21,10 +22,10 @@ func RecoveryMiddleware() gin.HandlerFunc {
 					"stack": string(debug.Stack()),
 				})
 				if lib.ConfBase.DebugMode != "debug" {
-					ResponseError(c, 500, errors.New("内部错误"))
+					controller.ResponseError(c, 500, errors.New("内部错误"))
 					return
 				} else {
-					ResponseError(c, 500, errors.New(fmt.Sprint(err)))
+					controller.ResponseError(c, 500, errors.New(fmt.Sprint(err)))
 					return
 				}
 			}

@@ -1,9 +1,10 @@
 package demoController
 
 import (
+	"errors"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
-	"wangting/http/middleWare"
+	"wangting/http/controller"
 	"wangting/pkg/model"
 )
 
@@ -15,11 +16,11 @@ type DemoController struct {
 func (demoController *DemoController) DemoInfo(c *gin.Context) {
 	var user model.User
 	lib.GORMDefaultPool.First(&user,1)
-	middleWare.ResponseSuccess(c, user)
+	controller.ResponseSuccess(c, user)
 }
 //demo获取信息
 func (demoController *DemoController) DemoError(c *gin.Context) {
-	middleWare.ResponseError(c, 2001,nil)
+	controller.ResponseError(c, 500, errors.New("手动抛出异常"))
 }
 
 
