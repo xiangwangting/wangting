@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"reflect"
 	"strings"
-	"wangting/http/handler"
+	"wangting/http/controller"
 	"wangting/http/middleWare"
 )
 
@@ -21,45 +21,34 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	gin := gin.Default()
 	apiGroup := gin.Group("/api")
 	apiGroup.Use(middleWare.Handel(),middleWare.RecoveryMiddleware())
-	Build(new(handler.Helper), apiGroup)
-	return gin
-
 	//Build(new(handler.Helper), apiGroup)
+
 
 	//router.GET("/", func(c *gin.Context) {
 	//	c.String(200, "hello go")
 	//})
 
-	//apiNormalGroup := router.Group("/api")
-	//apiNormalGroup.Use(middleWare.Handel(),middleWare.RecoveryMiddleware())
-	//{
-	//	//apiNormalRegister(apiNormalGroup)
-	//}
+	{
+		apiNormalRegister(apiGroup)
+	}
 	return gin
 }
 
 ////api,普通路由注册
-//func apiNormalRegister(router *gin.RouterGroup) {
-//	//demoController := demoController.DemoController{}
-//	//router.Any("demoinfo", demoController.DemoInfo)
-//	apiController :=  controller.ApiController{}
-//	router.Any("/*any",apiController.RegisterApi)
-//}
+func apiNormalRegister(router *gin.RouterGroup) {
+	//demoController := demoController.DemoController{}
+	//router.Any("demoinfo", demoController.DemoInfo)
+	apiController :=  controller.ApiController{}
+	router.Any("/*any",apiController.RegisterApi)
+}
 
-func (rt *Router) genHandlerFunc() gin.HandlerFunc {
-	// 取变量a的反射类型对象
-	paramsType := reflect.TypeOf(rt.Param).Elem()
-	// 根据反射类型对象创建类型实例
-	handler := func(c *gin.Context) {
-		newParam := reflect.New(paramsType).Interface().(Parameter)
-		newParam.BeforeBind(c)
-		newParam.Bind(c, newParam)
-		if newParam.Error() == nil {
-			newParam.Service(c)
-		}
-		newParam.Result(c)
+func Build(h interface{}, r gin.IRoutes) {
+	valueOfh := reflect.ValueOf(h)
+	numMethod := valueOfh.NumMethod()
+	for i := 0; i < numMethod; i++ {
+		rt := valueOfh.Method(i).Call(nil)[0].Interface().(*Router)
+		rt.AddHandler(r)
 	}
-	return handler
 }
 
 func (rt *Router) AddHandler(r gin.IRoutes) {
@@ -96,6 +85,22 @@ func (rt *Router) AddHandler(r gin.IRoutes) {
 	default:
 		panic("Method: " + rt.Method + " is error")
 	}
+}
+
+func (rt *Router) genHandlerFunc() gin.HandlerFunc {
+	// 取变量a的反射类型对象
+	paramsType := reflect.TypeOf(rt.Param).Elem()
+	// 根据反射类型对象创建类型实例
+	handler := func(c *gin.Context) {
+		newParam := reflect.New(paramsType).Interface().(Parameter)
+		newParam.BeforeBind(c)
+		newParam.Bind(c, newParam)
+		if newParam.Error() == nil {
+			newParam.Service(c)
+		}
+		newParam.Result(c)
+	}
+	return handler
 }
 
 

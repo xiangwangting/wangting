@@ -1,13 +1,11 @@
 package controller
 
 import (
-	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"reflect"
 	"strings"
-	"wangting/pkg/enum/responseCodeEnum"
 )
 
 type ApiController struct {
@@ -39,6 +37,7 @@ func (api *ApiController) RegisterApi(c *gin.Context){
 		//args := []reflect.Value{rValue}
 		//method.Func.Call(args)
 	} else {
-		ResponseError(c, responseCodeEnum.InternalErrorCode, errors.New("controller "+controlName+" not found"))
+		panic("controller "+controlName+" not found")
+		//ResponseError(c, responseCodeEnum.InternalErrorCode, errors.New("controller "+controlName+" not found"))
 	}
 }
