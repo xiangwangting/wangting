@@ -8,6 +8,8 @@ import (
 	"runtime/debug"
 	"wangting/http/controller"
 	"wangting/pkg/compent"
+	"wangting/pkg/enum/envEnum"
+	"wangting/pkg/enum/responseCodeEnum"
 )
 
 // RecoveryMiddleware捕获所有panic，并且返回错误信息
@@ -21,11 +23,11 @@ func RecoveryMiddleware() gin.HandlerFunc {
 					"error": fmt.Sprint(err),
 					"stack": string(debug.Stack()),
 				})
-				if lib.ConfBase.DebugMode != "debug" {
-					controller.ResponseError(c, 500, errors.New("内部错误"))
+				if lib.GetConfEnv() == envEnum.PRODUCT {
+					controller.ResponseError(c, responseCodeEnum.InternalErrorCode, errors.New("内部错误"))
 					return
 				} else {
-					controller.ResponseError(c, 500, errors.New(fmt.Sprint(err)))
+					controller.ResponseError(c, responseCodeEnum.InternalErrorCode, errors.New(fmt.Sprint(err)))
 					return
 				}
 			}
