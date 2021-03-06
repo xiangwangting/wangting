@@ -13,9 +13,6 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	router.GET("/", func(c *gin.Context) {
 		c.String(200, "hello go")
 	})
-	router.GET("/userinfo", func(c *gin.Context) {
-		c.String(200, "userinfo")
-	})
 
 	apiNormalGroup := router.Group("/api")
 	apiNormalGroup.Use(middleWare.Handel(),middleWare.RecoveryMiddleware())
