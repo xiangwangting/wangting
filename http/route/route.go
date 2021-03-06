@@ -18,7 +18,7 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	})
 
 	apiNormalGroup := router.Group("/api")
-	apiNormalGroup.Use(middleWare.Handel())
+	apiNormalGroup.Use(middleWare.Handel(),middleWare.RecoveryMiddleware())
 	apiNormalRegister(apiNormalGroup)
 	return router
 }
