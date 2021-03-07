@@ -32,9 +32,10 @@ func Post(c *gin.Context) {
 }
 
 func Gorm(c *gin.Context) {
-	var user model.User
-	lib.GORMDefaultPool.First(&user,3)
-	controller.ResponseSuccess(c, user)
+	var User model.User
+	lib.GORMDefaultPool.First(&User)
+	defer lib.GORMDefaultPool.Close()
+	controller.ResponseSuccess(c, User)
 }
 
 

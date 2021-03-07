@@ -14,8 +14,4 @@ type Model struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	DeletedAt gorm.DeletedAt `gorm:"index"`
-	//id        uint `gorm:"primary_key"`
-	//created_at time.Time
-	//updated_at time.Time
-	//deleted_at *time.Time `sql:"index"`
 }
