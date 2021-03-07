@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"runtime/debug"
 	"wangting/http/controller"
 	"wangting/pkg/compent"
 	"wangting/pkg/enum/envEnum"
-	"wangting/pkg/enum/responseCodeEnum"
 )
 
 // RecoveryMiddleware捕获所有panic，并且返回错误信息
@@ -24,10 +24,10 @@ func RecoveryMiddleware() gin.HandlerFunc {
 					"stack": string(debug.Stack()),
 				})
 				if lib.GetConfEnv() == envEnum.PRODUCT {
-					controller.ResponseError(c, responseCodeEnum.InternalErrorCode, errors.New("内部错误"))
+					controller.ResponseError(c, http.StatusInternalServerError, errors.New("内部错误"))
 					return
 				} else {
-					controller.ResponseError(c, responseCodeEnum.InternalErrorCode, errors.New(fmt.Sprint(err)))
+					controller.ResponseError(c, http.StatusInternalServerError, errors.New(fmt.Sprint(err)))
 					return
 				}
 			}

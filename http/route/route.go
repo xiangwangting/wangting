@@ -4,10 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"reflect"
 	"strings"
-	"wangting/http/controller"
 	"wangting/http/middleWare"
 )
 
+type Helper struct {
+
+}
 
 type Router struct {
 	Param    Parameter
@@ -21,28 +23,12 @@ func InitRouter(middlewares ...gin.HandlerFunc) *gin.Engine {
 	gin := gin.Default()
 	apiGroup := gin.Group("/api")
 	apiGroup.Use(middleWare.Handel(),middleWare.RecoveryMiddleware())
-	//Build(new(handler.Helper), apiGroup)
-
-
-	//router.GET("/", func(c *gin.Context) {
-	//	c.String(200, "hello go")
-	//})
-
-	{
-		apiNormalRegister(apiGroup)
-	}
+	build(new(Helper), apiGroup)
 	return gin
 }
 
-////api,普通路由注册
-func apiNormalRegister(router *gin.RouterGroup) {
-	//demoController := demoController.DemoController{}
-	//router.Any("demoinfo", demoController.DemoInfo)
-	apiController :=  controller.ApiController{}
-	router.Any("/*any",apiController.RegisterApi)
-}
-
-func Build(h interface{}, r gin.IRoutes) {
+//加载所有路由包
+func build(h interface{}, r gin.IRoutes) {
 	valueOfh := reflect.ValueOf(h)
 	numMethod := valueOfh.NumMethod()
 	for i := 0; i < numMethod; i++ {

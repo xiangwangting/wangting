@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"strings"
 	"wangting/pkg/enum/envEnum"
-	"wangting/pkg/enum/responseCodeEnum"
 )
 
 
@@ -28,16 +28,16 @@ func ResponseError(c *gin.Context, code int, err error) {
 	}
 
 	resp := &Response{Code: code, Message: err.Error(), Data: "", Stack: stack}
-	c.JSON(responseCodeEnum.SuccessCode, resp)
+	c.JSON(http.StatusOK, resp)
 	response, _ := json.Marshal(resp)
 	c.Set("response", string(response))
-	c.AbortWithError(responseCodeEnum.SuccessCode, err)
+	c.AbortWithError(http.StatusOK, err)
 }
 
 //http，响应成功
 func ResponseSuccess(c *gin.Context, data interface{}) {
-	resp := &Response{Code: responseCodeEnum.SuccessCode, Message: "成功", Data: data}
-	c.JSON(responseCodeEnum.SuccessCode, resp)
+	resp := &Response{Code: http.StatusOK, Message: "成功", Data: data}
+	c.JSON(http.StatusOK, resp)
 	response, _ := json.Marshal(resp)
 	c.Set("response", string(response))
 }
