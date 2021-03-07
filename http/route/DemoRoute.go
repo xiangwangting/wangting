@@ -8,7 +8,6 @@ import (
 
 func (h *Helper) DemoUserRoute() (r *Router) {
 	return &Router{
-		Param:  nil, //所需要的参数
 		Path:   "/user",                //路由路径
 		Method: http.MethodGet,              //方法
 		Handlers: []gin.HandlerFunc{
@@ -19,11 +18,20 @@ func (h *Helper) DemoUserRoute() (r *Router) {
 
 func (h *Helper) DemoErrorRoute() (r *Router) {
 	return &Router{
-		Param:  nil, //所需要的参数
 		Path:   "/error",                //路由路径
 		Method: http.MethodGet,              //方法
 		Handlers: []gin.HandlerFunc{
 			demoController.DemoError,
+		},
+	}
+}
+
+func (h *Helper) PostRoute() (r *Router) {
+	return &Router{
+		Path:   "/post",                //路由路径
+		Method: http.MethodPost,              //方法
+		Handlers: []gin.HandlerFunc{
+			demoController.Post,
 		},
 	}
 }
