@@ -2,6 +2,7 @@ package demoController
 
 import (
 	"errors"
+	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"wangting/http/controller"
@@ -12,8 +13,7 @@ type DemoController struct {
 }
 
 func Index(c *gin.Context) {
-	var user model.User
-	controller.ResponseSuccess(c, user)
+	controller.ResponseSuccess(c, "this is demo index")
 }
 
 //demo获取信息
@@ -29,6 +29,12 @@ func Post(c *gin.Context) {
 	}else{
 		controller.ResponseError(c, http.StatusInternalServerError, errors.New("缺少aa参数"))
 	}
+}
+
+func Gorm(c *gin.Context) {
+	var user model.User
+	lib.GORMDefaultPool.First(&user,3)
+	controller.ResponseSuccess(c, user)
 }
 
 

@@ -8,7 +8,7 @@ import (
 
 func (h *Helper) DemoUserRoute() (r *Router) {
 	return &Router{
-		Path:   "/user",                //路由路径
+		Path:   "/index",                //路由路径
 		Method: http.MethodGet,              //方法
 		Handlers: []gin.HandlerFunc{
 			demoController.Index,
@@ -32,6 +32,16 @@ func (h *Helper) PostRoute() (r *Router) {
 		Method: http.MethodPost,              //方法
 		Handlers: []gin.HandlerFunc{
 			demoController.Post,
+		},
+	}
+}
+
+func (h *Helper) GormRoute() (r *Router) {
+	return &Router{
+		Path:   "/gorm",                //路由路径
+		Method: http.MethodGet,              //方法
+		Handlers: []gin.HandlerFunc{
+			demoController.Gorm,
 		},
 	}
 }
