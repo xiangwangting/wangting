@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 	"wangting/http"
 )
@@ -20,14 +19,10 @@ func main() {
 	http.HttpServerStop()
 }
 
-var initOnce sync.Once
-
 //加载资源配置
 func setup() {
-	initOnce.Do(func() {
-		if err:=lib.Init("conf/local/");err!=nil{
-			log.Fatal(err)
-		}
-		defer lib.Destroy()
-	})
+	if err := lib.Init("conf/local/"); err != nil {
+		log.Fatal(err)
+	}
+	defer lib.Destroy()
 }

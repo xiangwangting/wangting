@@ -23,24 +23,21 @@ func DemoError(c *gin.Context) {
 
 //demo获取信息
 func Post(c *gin.Context) {
-	string , ok := c.GetPostForm("aa")
-	if ok {
+	if string, ok := c.GetPostForm("aa"); ok {
 		controller.ResponseSuccess(c, string)
-	}else{
+	} else {
 		controller.ResponseError(c, http.StatusInternalServerError, errors.New("缺少aa参数"))
 	}
 }
 
 func Gorm(c *gin.Context) {
 	//获取链接池
-	dbpool, err := lib.GetGormPool("default")
-	if err != nil {
-		controller.ResponseError(c, http.StatusBadGateway,err)
-	}
+	dbpool := lib.GORMDefaultPool
+	dbpool.SetCtx(lib.NewTrace())
+	defer dbpool.Close()
 	user := model.User{}
-	dbpool.Find(&user)
+	user.Username = "向往4"
+	user.Password = "2222"
+	dbpool.Create(&user)
 	controller.ResponseSuccess(c, dbpool)
 }
-
-
-
