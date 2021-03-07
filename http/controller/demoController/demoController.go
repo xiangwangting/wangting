@@ -31,13 +31,8 @@ func Post(c *gin.Context) {
 }
 
 func Gorm(c *gin.Context) {
-	//获取链接池
-	dbpool := lib.GORMDefaultPool
-	dbpool.SetCtx(lib.NewTrace())
-	defer dbpool.Close()
+	////获取链接池
 	user := model.User{}
-	user.Username = "向往4"
-	user.Password = "2222"
-	dbpool.Create(&user)
-	controller.ResponseSuccess(c, dbpool)
+	lib.GORMDefaultPool.First(&user,1)
+	controller.ResponseSuccess(c, user)
 }

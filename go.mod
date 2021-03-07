@@ -5,12 +5,13 @@ go 1.15
 require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/e421083458/golang_common v1.1.2
+	github.com/e421083458/gorm v1.0.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
-	github.com/go-sql-driver/mysql v1.5.0
+	//github.com/go-sql-driver/mysql v1.5.0
 	github.com/go-swagger/go-swagger v0.26.1 // indirect
 	github.com/golang/protobuf v1.4.3 // indirect
-	github.com/jinzhu/gorm v1.9.16
+	//github.com/jinzhu/gorm v1.9.16
 	github.com/jmoiron/sqlx v1.3.1 // indirect
 	github.com/json-iterator/go v1.1.10 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
@@ -26,7 +27,5 @@ require (
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83 // indirect
 	golang.org/x/sys v0.0.0-20210223212115-eede4237b368 // indirect
 	google.golang.org/protobuf v1.25.0 // indirect
-	gopkg.in/yaml.v2 v2.4.0
-	gorm.io/driver/sqlite v1.1.4
-	gorm.io/gorm v1.20.12
+	gorm.io/gorm v1.21.2
 )
