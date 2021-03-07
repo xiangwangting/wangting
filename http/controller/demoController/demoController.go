@@ -32,10 +32,14 @@ func Post(c *gin.Context) {
 }
 
 func Gorm(c *gin.Context) {
-	var User model.User
-	lib.GORMDefaultPool.First(&User)
-	defer lib.GORMDefaultPool.Close()
-	controller.ResponseSuccess(c, User)
+	//获取链接池
+	dbpool, err := lib.GetGormPool("default")
+	if err != nil {
+		controller.ResponseError(c, http.StatusBadGateway,err)
+	}
+	user := model.User{}
+	dbpool.Find(&user)
+	controller.ResponseSuccess(c, dbpool)
 }
 
 
