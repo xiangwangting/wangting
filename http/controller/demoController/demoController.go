@@ -2,6 +2,7 @@ package demoController
 
 import (
 	"errors"
+	"fmt"
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -33,6 +34,10 @@ func Post(c *gin.Context) {
 func Gorm(c *gin.Context) {
 	////获取链接池
 	user := model.User{}
-	lib.GORMDefaultPool.First(&user,1)
+	lib.GORMDefaultPool.First(&user,2)
+	fmt.Println(user)
+	user2 := model.User{}
+	lib.GORMDefaultPool.First(&user2,3)
+	fmt.Println(user2)
 	controller.ResponseSuccess(c, user)
 }

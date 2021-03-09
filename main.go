@@ -24,5 +24,4 @@ func setup() {
 	if err := lib.Init("conf/local/"); err != nil {
 		log.Fatal(err)
 	}
-	defer lib.Destroy()
 }

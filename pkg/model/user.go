@@ -1,13 +1,14 @@
 package model
 
 type User struct {
-	Model
+	Id        uint       `json:"id" gorm:"column:id"`
 	Username  string    `json:"name" gorm:"column:username"`
-	Password  string    `json:"addr" gorm:"column:password"`
-	Role      string    `json:"birth" gorm:"column:role"`
+	Password  string    `json:"password" gorm:"column:password"`
+	Role      string    `json:"role" gorm:"column:role"`
+	Model
 }
 
-func (f *User) TableName() string {
+func (u *User) TableName() string {
 	return "user"
 }
 
