@@ -6,17 +6,17 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"wangting/http"
+	"wangting/pkg/service"
 )
 
 //入口程序
 func main() {
 	setup()
-	http.HttpServerRun()
+	service.HttpServerRun()
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGKILL, syscall.SIGQUIT, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
-	http.HttpServerStop()
+	service.HttpServerStop()
 }
 
 //加载资源配置
