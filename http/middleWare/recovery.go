@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"runtime/debug"
-	"wangting/http/controller"
+	"wangting/http/handel"
 	"wangting/pkg/compent"
 	"wangting/pkg/enum/envEnum"
 )
@@ -24,10 +24,10 @@ func RecoveryMiddleware() gin.HandlerFunc {
 					"stack": string(debug.Stack()),
 				})
 				if lib.GetConfEnv() == envEnum.PRODUCT {
-					controller.ResponseError(c, http.StatusInternalServerError, errors.New("内部错误"))
+					handel.ResponseError(c, http.StatusInternalServerError, errors.New("内部错误"))
 					return
 				} else {
-					controller.ResponseError(c, http.StatusInternalServerError, errors.New(fmt.Sprint(err)))
+					handel.ResponseError(c, http.StatusInternalServerError, errors.New(fmt.Sprint(err)))
 					return
 				}
 			}

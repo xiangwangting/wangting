@@ -6,7 +6,7 @@ import (
 	"github.com/e421083458/golang_common/lib"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"wangting/http/controller"
+	"wangting/http/handel"
 )
 
 func IPAuthMiddleware() gin.HandlerFunc {
@@ -18,7 +18,7 @@ func IPAuthMiddleware() gin.HandlerFunc {
 			}
 		}
 		if !isMatched{
-			controller.ResponseError(c, http.StatusInternalServerError, errors.New(fmt.Sprintf("%v, not in iplist", c.ClientIP())))
+			handel.ResponseError(c, http.StatusInternalServerError, errors.New(fmt.Sprintf("%v, not in iplist", c.ClientIP())))
 			c.Abort()
 			return
 		}
