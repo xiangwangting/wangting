@@ -10,14 +10,13 @@ import (
 	"wangting/pkg/enum/envEnum"
 )
 
-
 //http,响应结构体
 type Response struct {
-	Code    int `json:"code"` //状态吗
-	Message string       `json:"message"` //提示信息
-	Data    interface{}  `json:"data"` //数据
-	Stack   interface{}  `json:"stack"` //堆栈
-	TraceId string `json:"traceid"` //堆栈
+	Code    int         `json:"code"`    //状态吗
+	Message string      `json:"message"` //提示信息
+	Data    interface{} `json:"data"`    //数据
+	Stack   interface{} `json:"stack"`   //堆栈
+	TraceId string      `json:"traceid"` //堆栈
 }
 
 //http，响应错误
@@ -28,7 +27,7 @@ func ResponseError(c *gin.Context, code int, err error) {
 		stack = strings.Replace(fmt.Sprintf("%+v", err), err.Error()+"\n", "", -1)
 	}
 
-	resp := &Response{Code: code, Message: err.Error(), Data: "", Stack: stack,TraceId:lib.NewTrace().TraceId}
+	resp := &Response{Code: code, Message: err.Error(), Data: "", Stack: stack, TraceId: lib.NewTrace().TraceId}
 	c.JSON(http.StatusOK, resp)
 	response, _ := json.Marshal(resp)
 	c.Set("response", string(response))
@@ -37,7 +36,7 @@ func ResponseError(c *gin.Context, code int, err error) {
 
 //http，响应成功
 func ResponseSuccess(c *gin.Context, data interface{}) {
-	resp := &Response{Code: http.StatusOK, Message: "成功", Data: data,TraceId:lib.NewTrace().TraceId}
+	resp := &Response{Code: http.StatusOK, Message: "成功", Data: data, TraceId: lib.NewTrace().TraceId}
 	c.JSON(http.StatusOK, resp)
 	response, _ := json.Marshal(resp)
 	c.Set("response", string(response))
